@@ -44,6 +44,8 @@ namespace Desafio_Tecnico.Application.Services
         public async Task<Assinatura> GetByIdAsync(int id)
         {
             var assinatura = await _assinaturaRepository.GetByIdAsync(id);
+            assinatura.TempoAssinaturaMeses = CalcularTempoAssinatura(assinatura.DataInicioAssinatura);
+
             return assinatura;
         }
 

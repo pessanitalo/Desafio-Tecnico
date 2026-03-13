@@ -25,8 +25,11 @@ namespace Desafio_Tecnico.Api.Controllers
             try
             {
                 var assinaturas = await _assinaturaService.GetAllAsync();
-                if (assinaturas == null || !assinaturas.Any()) return NotFound(new ResultViewModel<Assinatura>("Não a dados para mostrar."));
                 return Ok(assinaturas);
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return BadRequest(new ResultViewModel<string>(ex.Message));
             }
             catch (Exception)
             {
