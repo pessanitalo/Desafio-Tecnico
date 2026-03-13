@@ -10,5 +10,6 @@ namespace Desafio_Tecnico.Application.Interfaces
         Task<Assinatura> UpdateAsync(Assinatura assinatura);
         Task<Assinatura> DeactivateAsync(int id);
         Task DeleteAsync(int id);
+        Task<Assinatura> GetByEmailAsync(string email);
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Desafio_Tecnico.Api.ViewModels;
 using Desafio_Tecnico.Application.Interfaces;
 using Desafio_Tecnico.Domain.Models;
+using Desafio_Tecnico.Domain.Validation;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Desafio_Tecnico.Api.Controllers
@@ -39,8 +40,17 @@ namespace Desafio_Tecnico.Api.Controllers
         {
             try
             {
+                var assinaturaExiste = await _assinaturaService.GetByEmailAsync(assinatura.Email);
+
+                if (assinaturaExiste != null)
+                    return Conflict(new ResultViewModel<string>("E-mail já cadastrado no sistema."));
+
                 await _assinaturaService.AddAsync(assinatura);
-                return Ok("Cliente Salvo com sucesso");
+                return Ok("Assinatura Salvo com sucesso");
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return BadRequest(new ResultViewModel<string>(ex.Message));
             }
             catch (Exception)
             {
@@ -59,6 +69,10 @@ namespace Desafio_Tecnico.Api.Controllers
                 if (assinatura == null) return NotFound(new ResultViewModel<Assinatura>("Assinatura não encontrada"));
                 return Ok(assinatura);
             }
+            catch (DomainExceptionValidation ex)
+            {
+                return BadRequest(new ResultViewModel<string>(ex.Message));
+            }
             catch (Exception)
             {
                 return StatusCode(500, new ResultViewModel<List<Assinatura>>("Falha interna no servidor"));
@@ -76,6 +90,10 @@ namespace Desafio_Tecnico.Api.Controllers
                 await _assinaturaService.UpdateAsync(assinatura);
                 return Ok(new ResultViewModel<string>("Assinatura alterada com sucesso!"));
             }
+            catch (DomainExceptionValidation ex)
+            {
+                return BadRequest(new ResultViewModel<string>(ex.Message));
+            }
             catch (Exception)
             {
                 return StatusCode(500, new ResultViewModel<List<Assinatura>>("Falha interna no servidor"));
@@ -89,6 +107,10 @@ namespace Desafio_Tecnico.Api.Controllers
             {
                 await _assinaturaService.DeactivateAsync(id);
                 return Ok(new ResultViewModel<string>("Assinatura inativada com sucesso!"));
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return BadRequest(new ResultViewModel<string>(ex.Message));
             }
             catch (Exception)
             {
@@ -105,6 +127,10 @@ namespace Desafio_Tecnico.Api.Controllers
 
                 await _assinaturaService.DeleteAsync(id);
                 return Ok(new ResultViewModel<string>("Assinatura excluída com sucesso!"));
+            }
+            catch (DomainExceptionValidation ex)
+            {
+                return BadRequest(new ResultViewModel<string>(ex.Message));
             }
             catch (Exception)
             {

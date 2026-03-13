@@ -2,14 +2,12 @@ using Desafio_Tecnico.Application.Interfaces;
 using Desafio_Tecnico.Application.Services;
 using Desafio_Tecnico.Data.Context;
 using Desafio_Tecnico.Data.Repository;
+using Desafio_Tecnico.Domain.Validation;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
@@ -21,14 +19,26 @@ builder.Services.AddScoped<IAssinaturaService, AssinaturaService>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+app.Use(async (context, next) =>
+{
+    try
+    {
+        await next(context);
+    }
+    catch (DomainExceptionValidation ex)
+    {
+        context.Response.StatusCode = 400;
+        context.Response.ContentType = "application/json";
+        await context.Response.WriteAsJsonAsync(new { errors = new[] { ex.Message } });
+    }
+});
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
-app.UseAuthorization();
 app.UseAuthorization();
 
 app.MapControllers();

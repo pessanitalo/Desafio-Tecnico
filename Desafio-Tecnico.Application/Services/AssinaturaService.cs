@@ -12,9 +12,11 @@ namespace Desafio_Tecnico.Application.Services
         {
             _assinaturaRepository = clienteRepository;
         }
-        public async Task AddAsync(Assinatura cliente)
+        public async Task AddAsync(Assinatura assinatura)
         {
-            await _assinaturaRepository.AddAsync(cliente);
+
+            assinatura.TempoAssinaturaMeses = CalcularTempoAssinatura(assinatura.DataInicioAssinatura);
+            await _assinaturaRepository.AddAsync(assinatura);
         }
 
         public async Task<Assinatura> DeactivateAsync(int id)
@@ -34,6 +36,11 @@ namespace Desafio_Tecnico.Application.Services
             return assinaturas;
         }
 
+        public async Task<Assinatura> GetByEmailAsync(string email)
+        {
+            return await _assinaturaRepository.GetByEmailAsync(email);
+        }
+
         public async Task<Assinatura> GetByIdAsync(int id)
         {
             var assinatura = await _assinaturaRepository.GetByIdAsync(id);
@@ -44,6 +51,12 @@ namespace Desafio_Tecnico.Application.Services
         {
             var obj = await _assinaturaRepository.UpdateAsync(assinatura);
             return obj;
+        }
+
+        private int CalcularTempoAssinatura(DateTime dataInicio)
+        {
+            var hoje = DateTime.Now;
+            return ((hoje.Year - dataInicio.Year) * 12) + (hoje.Month - dataInicio.Month);
         }
     }
 }

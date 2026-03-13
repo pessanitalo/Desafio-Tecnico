@@ -42,14 +42,14 @@ namespace Desafio_Tecnico.Domain.Models
             DomainExceptionValidation.When(tempoAssinatura == 0,
                 "O tempo de assinatura não pode ser igual a 0.");
 
-            DomainExceptionValidation.When(dataInicio > DateTime.Now,
-                "A data de início da assinatura não pode ser maior que a data atual.");
-
             DomainExceptionValidation.When(valorMensal <= 0,
                 "O valor mensal da assinatura deve ser maior que 0.");
 
             DomainExceptionValidation.When(!Regex.IsMatch(email, @"^[^@\s]+@[^@\s]+\.[^@\s]+$"),
                 "O e-mail deve possuir um formato válido.");
+
+            DomainExceptionValidation.When(dataInicio.Date > DateTime.Now.Date,
+                 "A data de início da assinatura não pode ser maior que a data atual.");
         }
 
 

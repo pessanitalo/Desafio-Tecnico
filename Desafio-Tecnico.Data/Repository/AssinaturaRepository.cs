@@ -74,5 +74,11 @@ namespace Desafio_Tecnico.Data.Repository
 
             return existente;
         }
+
+        public async Task<Assinatura> GetByEmailAsync(string email)
+        {
+            return await _context.Assinaturas
+            .FirstOrDefaultAsync(a => a.Email == email);
+        }
     }
 }
