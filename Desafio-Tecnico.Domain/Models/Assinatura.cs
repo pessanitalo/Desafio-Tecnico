@@ -17,7 +17,7 @@ namespace Desafio_Tecnico.Domain.Models
 
 
         public Assinatura(int id, string nomeCompleto, string email, DateTime dataInicioAssinatura,
-        PlanoEnum plano, decimal valorMensalAssinatura, int tempoAssinaturaMeses, bool statusAssinatura)
+        PlanoEnum plano, decimal valorMensalAssinatura, bool statusAssinatura)
         {
             Id = id;
             NomeCompleto = nomeCompleto;
@@ -25,13 +25,13 @@ namespace Desafio_Tecnico.Domain.Models
             DataInicioAssinatura = dataInicioAssinatura;
             Plano = plano;
             ValorMensalAssinatura = valorMensalAssinatura;
-            TempoAssinaturaMeses = tempoAssinaturaMeses;
+            TempoAssinaturaMeses = 0;
             StatusAssinatura = statusAssinatura;
-            ValidateDomain(nomeCompleto, email, dataInicioAssinatura, valorMensalAssinatura, tempoAssinaturaMeses);
+            ValidateDomain(nomeCompleto, email, dataInicioAssinatura, valorMensalAssinatura);
         }
 
         private void ValidateDomain(string nome, string email, DateTime dataInicio,
-            decimal valorMensal, int tempoAssinatura)
+            decimal valorMensal)
         {
             DomainExceptionValidation.When(string.IsNullOrEmpty(nome),
                 "O Nome não pode ser nulo.");
@@ -39,8 +39,6 @@ namespace Desafio_Tecnico.Domain.Models
             DomainExceptionValidation.When(nome.Length < 3,
                 "O Nome precisa ser maior que três caracteres.");
 
-            DomainExceptionValidation.When(tempoAssinatura == 0,
-                "O tempo de assinatura não pode ser igual a 0.");
 
             DomainExceptionValidation.When(valorMensal <= 0,
                 "O valor mensal da assinatura deve ser maior que 0.");
