@@ -20,7 +20,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Desafio-Tecnico.Application\Desafio-Tecnico.Application.csproj" />
     <ProjectReference Include="..\Desafio-Tecnico.Data\Desafio-Tecnico.Data.csproj" />
-    <ProjectReference Include="..\Desafio-Tecnico.Domain\Desafio-Tecnico.Domain.csproj" />
   </ItemGroup>
 
 </Project>

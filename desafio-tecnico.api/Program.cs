@@ -16,8 +16,8 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<DataContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddScoped<IContatoRepository, ContatoRepository>();
-builder.Services.AddScoped<IContatoService, ContatoService>();
+builder.Services.AddScoped<IAssinaturaRepository, AssinaturaRepository>();
+builder.Services.AddScoped<IAssinaturaService, AssinaturaService>();
 
 var app = builder.Build();
 
