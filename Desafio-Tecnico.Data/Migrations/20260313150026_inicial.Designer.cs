@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Desafio_Tecnico.Data.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20260313134755_inicial")]
+    [Migration("20260313150026_inicial")]
     partial class inicial
     {
         /// <inheritdoc />
@@ -25,7 +25,7 @@ namespace Desafio_Tecnico.Data.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Desafio_Tecnico.Domain.Models.Contato", b =>
+            modelBuilder.Entity("Desafio_Tecnico.Domain.Models.Assinatura", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -33,28 +33,37 @@ namespace Desafio_Tecnico.Data.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("bit");
-
-                    b.Property<DateTime>("DataNascimento")
+                    b.Property<DateTime>("DataInicioAssinatura")
                         .HasColumnType("date");
 
-                    b.Property<int>("Idade")
-                        .HasColumnType("int");
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("varchar(100)");
 
-                    b.Property<string>("NomeContato")
+                    b.Property<string>("NomeCompleto")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("varchar(50)");
 
-                    b.Property<string>("Sexo")
+                    b.Property<string>("Plano")
                         .IsRequired()
+                        .HasMaxLength(10)
+                        .HasColumnType("varchar(10)");
+
+                    b.Property<bool>("StatusAssinatura")
+                        .HasColumnType("bit");
+
+                    b.Property<int>("TempoAssinaturaMeses")
+                        .HasColumnType("int");
+
+                    b.Property<decimal>("ValorMensalAssinatura")
                         .HasMaxLength(1)
-                        .HasColumnType("char(1)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
 
-                    b.ToTable("Contatos", (string)null);
+                    b.ToTable("Assinaturas", (string)null);
                 });
 #pragma warning restore 612, 618
         }

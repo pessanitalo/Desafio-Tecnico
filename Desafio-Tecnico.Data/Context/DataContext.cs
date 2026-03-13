@@ -7,7 +7,7 @@ namespace Desafio_Tecnico.Data.Context
     {
         public DataContext(DbContextOptions<DataContext> options) : base(options) { }
 
-        public DbSet<Contato> Contatos { get; set; }
+        public DbSet<Assinatura> Assinaturas { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
