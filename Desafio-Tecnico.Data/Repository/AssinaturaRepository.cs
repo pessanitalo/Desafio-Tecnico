@@ -61,5 +61,18 @@ namespace Desafio_Tecnico.Data.Repository
             _context.Assinaturas.Remove(assinatura);
             await _context.SaveChangesAsync();
         }
+
+        public async Task<Assinatura> UpdateAsync(Assinatura assinatura)
+        {
+            var existente = await _context.Assinaturas.FindAsync(assinatura.Id);
+
+            if (existente == null)
+                return null;
+
+            _context.Entry(existente).CurrentValues.SetValues(assinatura);
+            await _context.SaveChangesAsync();
+
+            return existente;
+        }
     }
 }

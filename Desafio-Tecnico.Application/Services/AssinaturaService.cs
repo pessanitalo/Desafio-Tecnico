@@ -39,5 +39,11 @@ namespace Desafio_Tecnico.Application.Services
             var assinatura = await _assinaturaRepository.GetByIdAsync(id);
             return assinatura;
         }
+
+        public async Task<Assinatura> UpdateAsync(Assinatura assinatura)
+        {
+            var obj = await _assinaturaRepository.UpdateAsync(assinatura);
+            return obj;
+        }
     }
 }

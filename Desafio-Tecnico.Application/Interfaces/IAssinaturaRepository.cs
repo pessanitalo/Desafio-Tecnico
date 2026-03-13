@@ -4,10 +4,11 @@ namespace Desafio_Tecnico.Application.Interfaces
 {
     public interface IAssinaturaRepository
     {
-        Task AddAsync(Assinatura cliente); //ok
-        Task <ICollection<Assinatura>> GetAllAsync(); //ok
-        Task <Assinatura> GetByIdAsync(int id); // ok 
-        Task<Assinatura> DeactivateAsync(int id); //ok
-        Task DeleteAsync(int id); // ok
+        Task AddAsync(Assinatura cliente);
+        Task <ICollection<Assinatura>> GetAllAsync();
+        Task <Assinatura> GetByIdAsync(int id);
+        Task<Assinatura> UpdateAsync(Assinatura assinatura);
+        Task<Assinatura> DeactivateAsync(int id);
+        Task DeleteAsync(int id);
     }
 }

@@ -11,18 +11,12 @@ namespace Desafio_Tecnico.Api.Controllers
     {
 
         public readonly IAssinaturaService _assinaturaService;
-        public readonly IAssinaturaRepository _assinaturaRepository;
 
         public AssinaturaController(IAssinaturaService assinaturaService)
         {
             _assinaturaService = assinaturaService;
         }
 
-        [HttpGet()]
-        public IActionResult Get()
-        {
-            return Ok("ok");
-        }
 
         [HttpGet("list")]
         public async Task<IActionResult> GetAllAsync()
@@ -41,11 +35,11 @@ namespace Desafio_Tecnico.Api.Controllers
         }
 
         [HttpPost()]
-        public async Task<IActionResult> Create(Assinatura Cliente)
+        public async Task<IActionResult> Create(Assinatura assinatura)
         {
             try
             {
-                await _assinaturaService.AddAsync(Cliente);
+                await _assinaturaService.AddAsync(assinatura);
                 return Ok("Cliente Salvo com sucesso");
             }
             catch (Exception)
@@ -72,11 +66,27 @@ namespace Desafio_Tecnico.Api.Controllers
 
         }
 
-        [HttpPost("{id:int}")]
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> UpdateAsync(int id, [FromBody] Assinatura assinatura)
+        {
+            try
+            {
+                assinatura.Id = id;
+
+                await _assinaturaService.UpdateAsync(assinatura);
+                return Ok(new ResultViewModel<string>("Assinatura alterada com sucesso!"));
+            }
+            catch (Exception)
+            {
+                return StatusCode(500, new ResultViewModel<List<Assinatura>>("Falha interna no servidor"));
+            }
+        }
+
+        [HttpPatch("{id:int}")]
         public async Task<IActionResult> DeactivateAsync(int id)
         {
             try
-            {   // esta removendo, porem tem que melhorar a mensagem de erro.
+            {
                 await _assinaturaService.DeactivateAsync(id);
                 return Ok(new ResultViewModel<string>("Assinatura inativada com sucesso!"));
             }
@@ -91,7 +101,8 @@ namespace Desafio_Tecnico.Api.Controllers
         public async Task<IActionResult> DeleteAsync(int id)
         {
             try
-            {   // esta removendo, porem tem que melhorar a mensagem de erro.
+            {
+
                 await _assinaturaService.DeleteAsync(id);
                 return Ok(new ResultViewModel<string>("Assinatura excluída com sucesso!"));
             }
