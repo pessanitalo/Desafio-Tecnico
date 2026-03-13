@@ -1,0 +1,7 @@
+<Solution>
+  <Project Path="desafio-tecnico.api/desafio-tecnico.api.csproj" Id="56e6a0ec-f3cc-4f1b-8fcd-15991cb16594" />
+  <Project Path="Desafio-Tecnico.Application/Desafio-Tecnico.Application.csproj" Id="e44fdbec-8393-4131-bc97-b4ea3a8b01ad" />
+  <Project Path="Desafio-Tecnico.Data/Desafio-Tecnico.Data.csproj" Id="2595c33c-c870-4926-aa9c-6ca6cc298378" />
+  <Project Path="Desafio-Tecnico.Domain/Desafio-Tecnico.Domain.csproj" Id="11d3c95c-4982-4d99-ba6b-047abd0a945d" />
+  <Project Path="Desafio-Tecnico.Tests/Desafio-Tecnico.Tests.csproj" Id="78eb84b9-d065-40b6-a2ec-fa65cef36790" />
+</Solution>
